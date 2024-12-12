@@ -11,16 +11,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+ALLOWED_HOSTS = ['*']  # Be sure to restrict this in production!
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-56+h$*+j%4glshz=+h97e1uflst7)x1@^nw7*u2^3r5pi-3u^@'
+SECRET_KEY = os.getenv('django-insecure-56+h$*+j%4glshz=+h97e1uflst7)x1@^nw7*u2^3r5pi-3u^@', 'your-default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -130,7 +131,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-FIELD_ENCRYPTION_KEY = b'Vit_xClnMiYl_Sc0LlL99giOC8H_Q7ViDin_84ZKtYw='
-if not FIELD_ENCRYPTION_KEY:
-    from cryptography.fernet import Fernet
-    FIELD_ENCRYPTION_KEY = Fernet.generate_key()
+FIELD_ENCRYPTION_KEY = os.getenv('SEFARIA_PLUGIN_SECRET', b'Vit_xClnMiYl_Sc0LlL99giOC8H_Q7ViDin_84ZKtYw=')
