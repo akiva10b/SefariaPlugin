@@ -1,1 +1,1 @@
-web: python plugin_server/manage.py runserver 0.0.0.0:$PORT
+web: gunicorn plugin_server.wsgi --log-file -
